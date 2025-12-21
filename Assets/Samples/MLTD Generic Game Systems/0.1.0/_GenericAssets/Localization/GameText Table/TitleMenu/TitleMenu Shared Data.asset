@@ -1,0 +1,131 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: TitleMenu Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: TitleMenu
+  m_TableCollectionNameGuidString: 0476f361e7dfd8047ac34a6ef64faa6c
+  m_Entries:
+  - m_Id: 255684460544
+    m_Key: New Game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28117862924288
+    m_Key: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95992252936699904
+    m_Key: 'Quit Game
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96159984013492224
+    m_Key: General
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96160031925026816
+    m_Key: Audio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96160083003260928
+    m_Key: Graphics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96160085159133184
+    m_Key: Control
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96160085750530048
+    m_Key: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96160803962175488
+    m_Key: English
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96160814158528512
+    m_Key: Indonesian
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96161078944940032
+    m_Key: Spanish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96161081046286336
+    m_Key: Ptbr
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96161081704792064
+    m_Key: Japanese
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96161395929464832
+    m_Key: SimpCN
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96161703317422080
+    m_Key: FPS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96161769994272768
+    m_Key: Master Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96161891532619776
+    m_Key: Music Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96161955269263360
+    m_Key: Sound Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96162092448169984
+    m_Key: Window Mode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96162236342157312
+    m_Key: Resolution
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96163016444952576
+    m_Key: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 103986666430742528
+    m_Key: Yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 103986701461569536
+    m_Key: No
+    m_Metadata:
+      m_Items: []
+  - m_Id: 104230535927906304
+    m_Key: Load Game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 104230833207590912
+    m_Key: Continue
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 2741764223846056144
+  references:
+    version: 2
+    RefIds:
+    - rid: 2741764223846056144
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables,
+        asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1740850563957

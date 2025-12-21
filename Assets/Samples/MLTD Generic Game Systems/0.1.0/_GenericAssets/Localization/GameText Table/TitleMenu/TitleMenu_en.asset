@@ -1,0 +1,125 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: TitleMenu_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 0476f361e7dfd8047ac34a6ef64faa6c, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 255684460544
+    m_Localized: New Game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28117862924288
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95992252936699904
+    m_Localized: 'Quit Game
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96160083003260928
+    m_Localized: Graphics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96160085750530048
+    m_Localized: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96160085159133184
+    m_Localized: Control
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96160031925026816
+    m_Localized: Audio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96159984013492224
+    m_Localized: General
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96160803962175488
+    m_Localized: English
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96160814158528512
+    m_Localized: Indonesian
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96161078944940032
+    m_Localized: Spanish
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96161081046286336
+    m_Localized: Portuguese-Brazil
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96161395929464832
+    m_Localized: Simplified Chinese
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96161081704792064
+    m_Localized: Japanese
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96161703317422080
+    m_Localized: FPS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96161769994272768
+    m_Localized: Master Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96161891532619776
+    m_Localized: Music Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96161955269263360
+    m_Localized: Sound Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96162092448169984
+    m_Localized: Window Mode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96162236342157312
+    m_Localized: Resolution
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96163016444952576
+    m_Localized: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 103986666430742528
+    m_Localized: Yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 103986701461569536
+    m_Localized: No
+    m_Metadata:
+      m_Items: []
+  - m_Id: 104230535927906304
+    m_Localized: Load Game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 104230833207590912
+    m_Localized: Continue
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

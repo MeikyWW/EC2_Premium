@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Localization-Assets-Shared
+  m_EditorClassIdentifier: 
+  m_GroupName: Localization-Assets-Shared
+  m_GUID: 0a7e2f280fee7d34087ff84d6ba19c1d
+  m_SerializeEntries:
+  - m_GUID: 0476f361e7dfd8047ac34a6ef64faa6c
+    m_Address: Assets/Samples/MLTD Generic Game Systems/0.1.0/_GenericAssets/Localization/GameText
+      Table/TitleMenu/TitleMenu Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 67245f6deda87d24ab9a924ac4cc728c
+    m_Address: Assets/Samples/MLTD Generic Game Systems/0.1.0/_GenericAssets/Localization/GameText
+      Table/PauseMenu/PauseMenu Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 1
+  m_Settings: {fileID: 11400000, guid: 3257e28c4d3b61248a59b8b7eedef331, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 4b2fec641a3ff0c4cabc36b001a2d1c3, type: 2}
+    - {fileID: 11400000, guid: dcc2c15198796ee428037d42b3668ad2, type: 2}

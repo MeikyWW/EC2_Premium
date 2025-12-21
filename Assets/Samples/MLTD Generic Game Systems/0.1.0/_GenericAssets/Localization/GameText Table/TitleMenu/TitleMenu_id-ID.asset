@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: TitleMenu_id-ID
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: id-ID
+  m_SharedData: {fileID: 11400000, guid: 0476f361e7dfd8047ac34a6ef64faa6c, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 255684460544
+    m_Localized: Mulai Permainan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28117862924288
+    m_Localized: Pilihan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95992252936699904
+    m_Localized: Keluar dari Game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96159984013492224
+    m_Localized: General
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96160031925026816
+    m_Localized: Audio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96160083003260928
+    m_Localized: Grafis
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96160085159133184
+    m_Localized: Kontrol
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96160085750530048
+    m_Localized: Bahasa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96160803962175488
+    m_Localized: Inggris
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96160814158528512
+    m_Localized: Bahasa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96161081704792064
+    m_Localized: Jepang
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96161395929464832
+    m_Localized: Simplified Chinese
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96161081046286336
+    m_Localized: Portugis-Brazil
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96161078944940032
+    m_Localized: Spanyol
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96161703317422080
+    m_Localized: FPS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96161769994272768
+    m_Localized: Volume Master
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96161891532619776
+    m_Localized: Volume Music
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96161955269263360
+    m_Localized: Volume Suara
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96162092448169984
+    m_Localized: Pengaturan Window
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96162236342157312
+    m_Localized: Resolusi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 96163016444952576
+    m_Localized: Kembali
+    m_Metadata:
+      m_Items: []
+  - m_Id: 103986666430742528
+    m_Localized: Ya
+    m_Metadata:
+      m_Items: []
+  - m_Id: 103986701461569536
+    m_Localized: Tidak
+    m_Metadata:
+      m_Items: []
+  - m_Id: 104230535927906304
+    m_Localized: Load Data Permainan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 104230833207590912
+    m_Localized: Lanjutkan Permainan
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
