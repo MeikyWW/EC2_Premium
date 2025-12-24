@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class HeroReference : MonoBehaviour
 {
-
+    public Hero hero;
 }
 
 

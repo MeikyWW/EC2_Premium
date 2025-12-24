@@ -132,11 +132,11 @@ public class HeroStatus : MonoBehaviour
         }
     }
 
-    [HideInInspector] public List<Amy_PassionField> passionFields;
-    [HideInInspector] public List<Elze_Rosefield> roseFields;
-    [HideInInspector] public List<Louisa_MoraleBoost> moraleFields;
-    [HideInInspector] public List<Alaster_ProtectionField> protectionFields;
-    [HideInInspector] public List<Edna_FieryField> fieryFields;
+    //[HideInInspector] public List<Amy_PassionField> passionFields;
+    //[HideInInspector] public List<Elze_Rosefield> roseFields;
+    //[HideInInspector] public List<Louisa_MoraleBoost> moraleFields;
+    //[HideInInspector] public List<Alaster_ProtectionField> protectionFields;
+    //[HideInInspector] public List<Edna_FieryField> fieryFields;
     [HideInInspector] public float moveSpeedAlter = 1f;
     [HideInInspector] public float amy_field_mspd;
     [HideInInspector] public float louisa_nimble_mspd;
@@ -588,8 +588,8 @@ public class HeroStatus : MonoBehaviour
     }
     private void Awake()
     {
-        passionFields = new List<Amy_PassionField>();
-        protectionFields = new List<Alaster_ProtectionField>();
+        //passionFields = new List<Amy_PassionField>();
+        //protectionFields = new List<Alaster_ProtectionField>();
     }
     private void Start()
     {
@@ -641,6 +641,7 @@ public class HeroStatus : MonoBehaviour
         Timing.RunCoroutine(LateInit().CancelWith(gameObject));
         initialized = true;
     }
+
     int CalculateMaxExp()
     {
         return gm.dataSheet.GetMaxExp(heroData.currentLevel);
@@ -677,16 +678,20 @@ public class HeroStatus : MonoBehaviour
         if (!IsMine()) return;
         HeroAttributes allStats = heroData.CombinedStatus();
         HeroAttributes unlockedStatsCosu = heroData.GetCosuUnlockedStat();
-        HeroAttributes myBuffs = gm.GetCalculatedDeveloperBuffs(out _, out _);
-        HeroAttributes feastBuff = gm.GetFoodBuff();
+        //HeroAttributes myBuffs = gm.GetCalculatedDeveloperBuffs(out _, out _);
+        //HeroAttributes feastBuff = gm.GetFoodBuff();
 
-        allStats.Merge(myBuffs);
-        allStats.Merge(feastBuff);
+        //allStats.Merge(myBuffs);
+        //allStats.Merge(feastBuff);
 
         setEffect = heroData.GetEquipmentSetEffect(out HeroAttributes statsModifier);
         costumeEffect = heroData.GetCostumeSetEffect(out HeroAttributes costumeModifier);
         socketEffect = heroData.GetEquipmentSocketEffect();
-        damage = allStats.Attack + statsModifier.Attack + gm.additionalDamage;
+        damage = 
+            allStats.Attack 
+            + statsModifier.Attack 
+            //+ gm.additionalDamage
+            ;
         //buff
         damage += damage * allStats.AttackPercentage / 1000f;
 
@@ -699,18 +704,42 @@ public class HeroStatus : MonoBehaviour
         var healthPercentage = heroData.ConvertedValue(EC2.Stats.HealthPercentage, allStats.HealthPercentage + statsModifier.HealthPercentage + costumeModifier.HealthPercentage + unlockedStatsCosu.HealthPercentage);
         health = allStats.MaxHP;
         health += health * (healthPercentage / 100);
-        defense = allStats.Defense + gm.additionaDefense + statsModifier.Defense + costumeModifier.Defense + unlockedStatsCosu.Defense;
+
+        defense = 
+            allStats.Defense 
+            //+ gm.additionaDefense 
+            + statsModifier.Defense 
+            + costumeModifier.Defense 
+            + unlockedStatsCosu.Defense
+        ;
+
         //buff
         defense += defense * allStats.DefensePercentage / 1000f;
 
         recovery = heroData.ConvertedValue(EC2.Stats.Recovery, allStats.Recovery + statsModifier.Recovery + costumeModifier.Recovery + unlockedStatsCosu.Recovery);
-        elementalResistance = heroData.ConvertedValue(EC2.Stats.ElementalResistance, allStats.ElementalResistance + statsModifier.ElementalResistance + costumeModifier.ElementalResistance + unlockedStatsCosu.ElementalResistance) + gm.additionalResistance;
-        physicalResistance = heroData.ConvertedValue(EC2.Stats.PhysicalResistance, allStats.PhysicalResistance + statsModifier.PhysicalResistance + costumeModifier.PhysicalResistance + unlockedStatsCosu.PhysicalResistance) + gm.additionalResistance;
+        
+        elementalResistance = 
+            heroData.ConvertedValue(EC2.Stats.ElementalResistance, allStats.ElementalResistance + statsModifier.ElementalResistance + costumeModifier.ElementalResistance + unlockedStatsCosu.ElementalResistance) 
+            //+ gm.additionalResistance
+            ;
+        
+        physicalResistance = 
+            heroData.ConvertedValue(EC2.Stats.PhysicalResistance, allStats.PhysicalResistance + statsModifier.PhysicalResistance + costumeModifier.PhysicalResistance + unlockedStatsCosu.PhysicalResistance) 
+            //+ gm.additionalResistance
+            ;
+        
         evasion = heroData.ConvertedValue(EC2.Stats.Evasion, allStats.Evasion + statsModifier.Evasion + costumeModifier.Evasion + unlockedStatsCosu.Evasion);
 
         maxMana = allStats.MaxMP + statsModifier.MaxMP + costumeModifier.MaxMP + unlockedStatsCosu.MaxMP;
-        manaReduction = gm.additionalSkillPurpose + heroData.ConvertedValue(EC2.Stats.ManaReduce, allStats.ManaReduce + statsModifier.ManaReduce + costumeModifier.ManaReduce + unlockedStatsCosu.ManaReduce);
-        cooldownReduction = gm.additionalSkillPurpose + heroData.ConvertedValue(EC2.Stats.CooldownReduce, allStats.CooldownReduce + statsModifier.CooldownReduce + costumeModifier.CooldownReduce + unlockedStatsCosu.CooldownReduce);
+        
+        manaReduction = 
+            //gm.additionalSkillPurpose + 
+            heroData.ConvertedValue(EC2.Stats.ManaReduce, allStats.ManaReduce + statsModifier.ManaReduce + costumeModifier.ManaReduce + unlockedStatsCosu.ManaReduce);
+        
+        cooldownReduction = 
+            //gm.additionalSkillPurpose + 
+            heroData.ConvertedValue(EC2.Stats.CooldownReduce, allStats.CooldownReduce + statsModifier.CooldownReduce + costumeModifier.CooldownReduce + unlockedStatsCosu.CooldownReduce);
+        
         speciality = heroData.ConvertedValue(EC2.Stats.Speciality, allStats.Speciality + statsModifier.Speciality + costumeModifier.Speciality + unlockedStatsCosu.Speciality);
         dropRateMod = 0; // heroData.ConvertedValue(Stats.DropRatePlus, allStats.DropRatePlus + statsModifier.DropRatePlus);
 
@@ -877,8 +906,8 @@ public class HeroStatus : MonoBehaviour
     float manaRegenTimer, hpRegenTimer, tranquilityTimer;
     void UpdateRegeneration()
     {
-        if (gm.IsGameOver()) return;
-        if (gm.STATE == GameState.PAUSE) return;
+        //if (gm.IsGameOver()) return;
+        //if (gm.STATE == GameState.PAUSE) return;
         if (heroHealth.die) return;
 
         //Mana regenerates by 1 per 1s tick
@@ -905,23 +934,23 @@ public class HeroStatus : MonoBehaviour
         }
 
         //Tranquility
-        if (socketEffect.tranquility.count > 0)
-        {
-            if (gm.ActiveHero != this)
-            {
-                heroStatusEffect.SetNotification("icon_rune_" + SocketType.Tranquility.ToString().ToLower(), "");
-                tranquilityTimer += Time.deltaTime;
-                if (tranquilityTimer > socketEffect.tranquility.GetValue(1))
-                {
-                    heroHealth.RestoreHpPercent(socketEffect.tranquility.GetValue(0), false);
-                    tranquilityTimer = 0;
-                }
-            }
-            else
-            {
-                heroStatusEffect.RemoveNotification("icon_rune_" + SocketType.Tranquility.ToString().ToLower());
-            }
-        }
+        // if (socketEffect.tranquility.count > 0)
+        // {
+        //     if (gm.ActiveHero != this)
+        //     {
+        //         heroStatusEffect.SetNotification("icon_rune_" + SocketType.Tranquility.ToString().ToLower(), "");
+        //         tranquilityTimer += Time.deltaTime;
+        //         if (tranquilityTimer > socketEffect.tranquility.GetValue(1))
+        //         {
+        //             heroHealth.RestoreHpPercent(socketEffect.tranquility.GetValue(0), false);
+        //             tranquilityTimer = 0;
+        //         }
+        //     }
+        //     else
+        //     {
+        //         heroStatusEffect.RemoveNotification("icon_rune_" + SocketType.Tranquility.ToString().ToLower());
+        //     }
+        // }
 
         //Bravery
         if (socketEffect.bravery.count > 0)
@@ -945,13 +974,13 @@ public class HeroStatus : MonoBehaviour
         switch (heroReference.hero)
         {
             case Hero.Claris: spGaugeRecoveryThreshold = 1.5f; break;
-            case Hero.Chase: spGaugeRecoveryThreshold = 12.0f; break;
-            case Hero.Amy: spGaugeRecoveryThreshold = 3f; break;
-            case Hero.Alaster: spGaugeRecoveryThreshold = 1.5f; break;
-            case Hero.Edna: spGaugeRecoveryThreshold = 1.5f; break;
-            case Hero.Louisa: spGaugeRecoveryThreshold = 5.0f; break;
-            case Hero.Elze: spGaugeRecoveryThreshold = 2.0f; break;
-            case Hero.Zerav: spGaugeRecoveryThreshold = 2.0f; break;
+            // case Hero.Chase: spGaugeRecoveryThreshold = 12.0f; break;
+            // case Hero.Amy: spGaugeRecoveryThreshold = 3f; break;
+            // case Hero.Alaster: spGaugeRecoveryThreshold = 1.5f; break;
+            // case Hero.Edna: spGaugeRecoveryThreshold = 1.5f; break;
+            // case Hero.Louisa: spGaugeRecoveryThreshold = 5.0f; break;
+            // case Hero.Elze: spGaugeRecoveryThreshold = 2.0f; break;
+            // case Hero.Zerav: spGaugeRecoveryThreshold = 2.0f; break;
             default: spGaugeRecoveryThreshold = 9999; break;
         }
 
@@ -963,10 +992,10 @@ public class HeroStatus : MonoBehaviour
     }
     void UpdateSpecialityRecovery()
     {
-        if (gm.IsGameOver()) return;
-        if (gm.STATE == GameState.PAUSE) return;
+        //if (gm.IsGameOver()) return;
+        //if (gm.STATE == GameState.PAUSE) return;
         if (heroHealth.die) return;
-        if (gm.ActiveHero == this) return; //only works if character is benched
+        //if (gm.ActiveHero == this) return; //only works if character is benched
 
         spGaugeRecoveryTimer += Time.deltaTime;
         if (spGaugeRecoveryTimer >= spGaugeRecoveryThreshold)
@@ -980,37 +1009,37 @@ public class HeroStatus : MonoBehaviour
                     //Debug.Log("recovers 1 Resonance Point");
                     break;
 
-                case Hero.Chase:
-                    GetComponent<Hero_Chase>().IncreaseGauge(1);
-                    //Debug.Log("recovers 1 Ammo");
-                    break;
+                // case Hero.Chase:
+                //     GetComponent<Hero_Chase>().IncreaseGauge(1);
+                //     //Debug.Log("recovers 1 Ammo");
+                //     break;
 
-                case Hero.Amy:
-                    GetComponent<Hero_Amy>().AddRagePoint(1);
-                    //Debug.Log("Amy add rage point by 1");
-                    break;
+                // case Hero.Amy:
+                //     GetComponent<Hero_Amy>().AddRagePoint(1);
+                //     //Debug.Log("Amy add rage point by 1");
+                //     break;
 
-                case Hero.Alaster:
-                    GetComponent<Hero_Alaster>().IncreaseSwordGauge(1);
-                    //Debug.Log("Amy add rage point by 1");
-                    break;
+                // case Hero.Alaster:
+                //     GetComponent<Hero_Alaster>().IncreaseSwordGauge(1);
+                //     //Debug.Log("Amy add rage point by 1");
+                //     break;
 
-                case Hero.Edna:
-                    GetComponent<Hero_Edna>().IncreaseHeatGauge(1);
-                    //Debug.Log("Amy add rage point by 1");
-                    break;
+                // case Hero.Edna:
+                //     GetComponent<Hero_Edna>().IncreaseHeatGauge(1);
+                //     //Debug.Log("Amy add rage point by 1");
+                //     break;
 
-                case Hero.Louisa:
-                    GetComponent<Hero_Louisa>().IncreaseTacticalGauge(1, true);
-                    break;
+                // case Hero.Louisa:
+                //     GetComponent<Hero_Louisa>().IncreaseTacticalGauge(1, true);
+                //     break;
 
-                case Hero.Elze:
-                    GetComponent<Hero_Elze>().IncreaseFrostcraftGauge(1);
-                    break;
+                // case Hero.Elze:
+                //     GetComponent<Hero_Elze>().IncreaseFrostcraftGauge(1);
+                //     break;
 
-                case Hero.Zerav:
-                    GetComponent<Hero_Zerav>().IncreaseAwakeningGauge(2);
-                    break;
+                // case Hero.Zerav:
+                //     GetComponent<Hero_Zerav>().IncreaseAwakeningGauge(2);
+                //     break;
 
                 default: break;
             }
@@ -1200,8 +1229,8 @@ public class HeroStatus : MonoBehaviour
     }
     public void UpdateTropicalSquash()
     {
-        if (gm.IsGameOver()) return;
-        if (gm.STATE == GameState.PAUSE) return;
+        //if (gm.IsGameOver()) return;
+        //if (gm.STATE == GameState.PAUSE) return;
         if (heroHealth.die) return;
         if (tropicalSquashActive == false) return;
 
