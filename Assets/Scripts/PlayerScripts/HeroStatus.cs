@@ -204,10 +204,10 @@ public class HeroStatus : MonoBehaviour
 
             float total = heroData.GetRawValue(EC2.Stats.BasicAtkDamage, temp * 10); // 135
 
-            if (vengeanceStack > 0)
-            {
-                total += vengeance_skill_bonus * 10f; // 135 + 50 = 185
-            }
+            // if (vengeanceStack > 0)
+            // {
+            //     total += vengeance_skill_bonus * 10f; // 135 + 50 = 185
+            // }
 
             total += amy_wolf_fang * 10f;
             total += amy_fighter_fury * 10f;
@@ -236,8 +236,8 @@ public class HeroStatus : MonoBehaviour
 
             float total = heroData.GetRawValue(EC2.Stats.SkillAtkDamage, temp * 10); // 135
 
-            if (vengeanceStack > 0)
-                total += vengeance_skill_bonus * 10f; // 135 + 50 = 185
+            // if (vengeanceStack > 0)
+            //     total += vengeance_skill_bonus * 10f; // 135 + 50 = 185
 
             if (extraSkillDmg > 0)
                 total += extraSkillDmg * 10f;
@@ -1306,15 +1306,15 @@ public class HeroStatus : MonoBehaviour
     {
         if (heroData.currentLevel >= gm.heroMaxLevel) return; //limit max level
 
-        gm.NotifyLevelUp(heroReference.hero.ToString().ToLower(), heroReference.HeroName(), false, false);
+        //gm.NotifyLevelUp(heroReference.hero.ToString().ToLower(), heroReference.HeroName(), false, false);
 
-        if (heroData.currentLevel == 1)
-        {
-            Timing.RunCoroutine(NotifyFirstLevelupGuide());
-        }
+        // if (heroData.currentLevel == 1)
+        // {
+        //     Timing.RunCoroutine(NotifyFirstLevelupGuide());
+        // }
 
         heroData.currentLevel++;
-        gm.userData.LevelUpChar(heroReference.hero, heroData.currentLevel); //add statistic
+        //gm.userData.LevelUpChar(heroReference.hero, heroData.currentLevel); //add statistic
         //MaxExp = CalculateMaxExp();
         if (statusBar) statusBar.SetLevel(heroData.currentLevel);
 
@@ -1353,13 +1353,13 @@ public class HeroStatus : MonoBehaviour
         //Lv15 - skill 6
         if (heroData.currentLevel >= 30) control.SkillUnlock(7);
     }
-    IEnumerator<float> NotifyFirstLevelupGuide()
-    {
-        yield return Timing.WaitForSeconds(1);
+    // IEnumerator<float> NotifyFirstLevelupGuide()
+    // {
+    //     yield return Timing.WaitForSeconds(1);
 
-        gm.slideshow.SetActiveSlide(3);
-        gm.interaction.StartInteraction();
-    }
+    //     gm.slideshow.SetActiveSlide(3);
+    //     gm.interaction.StartInteraction();
+    // }
 
     public void HealCheckpoint()
     {
@@ -1492,184 +1492,184 @@ public class HeroStatus : MonoBehaviour
         heroStatusEffect.RemoveNotification(notification);
     }
 
-    //-- Gimmick
-    int vengeanceStack;
-    CoroutineHandle vengeanceNotif;
-    public void TriggerVengeance()
-    {
-        if (setEffect.vengeance > 0f)
-        {
-            if (vengeanceStack < 5)
-            {
-                vengeanceStack++;
-                vengeance_skill_bonus = vengeanceStack * setEffect.vengeance;
-            }
+    // //-- Gimmick
+    // int vengeanceStack;
+    // CoroutineHandle vengeanceNotif;
+    // public void TriggerVengeance()
+    // {
+    //     if (setEffect.vengeance > 0f)
+    //     {
+    //         if (vengeanceStack < 5)
+    //         {
+    //             vengeanceStack++;
+    //             vengeance_skill_bonus = vengeanceStack * setEffect.vengeance;
+    //         }
 
-            Timing.KillCoroutines(vengeanceNotif);
+    //         Timing.KillCoroutines(vengeanceNotif);
 
-            vengeanceNotif = Timing.RunCoroutine(StatusEffectByDurationAndStack
-                (
-                    "setEffect_" + EquipSet.Vengeance.ToString().ToLower(), 12f, vengeanceStack, RemoveVengeance
-                ),
-                EC2Constant.STATE_DEPENDENT);
-        }
-    }
+    //         vengeanceNotif = Timing.RunCoroutine(StatusEffectByDurationAndStack
+    //             (
+    //                 "setEffect_" + EquipSet.Vengeance.ToString().ToLower(), 12f, vengeanceStack, RemoveVengeance
+    //             ),
+    //             EC2Constant.STATE_DEPENDENT);
+    //     }
+    // }
 
-    public void RemoveVengeance()
-    {
-        vengeanceStack = 0;
-        vengeance_skill_bonus = 0f;
-    }
+    // public void RemoveVengeance()
+    // {
+    //     vengeanceStack = 0;
+    //     vengeance_skill_bonus = 0f;
+    // }
 
-    public void AddPassionField(Amy_PassionField passionField)
-    {
-        if (passionFields.Contains(passionField)) return;
-        passionFields.Add(passionField);
-    }
+    // public void AddPassionField(Amy_PassionField passionField)
+    // {
+    //     if (passionFields.Contains(passionField)) return;
+    //     passionFields.Add(passionField);
+    // }
 
-    public void RemovePassionField(Amy_PassionField passionField)
-    {
-        passionFields.Remove(passionField);
-    }
+    // public void RemovePassionField(Amy_PassionField passionField)
+    // {
+    //     passionFields.Remove(passionField);
+    // }
 
-    public void AddRosefield(Elze_Rosefield rosefield)
-    {
-        if (roseFields.Contains(rosefield)) return;
-        roseFields.Add(rosefield);
-    }
-    public void RemoveRosefield(Elze_Rosefield rosefield)
-    {
-        roseFields.Remove(rosefield);
-    }
+    // public void AddRosefield(Elze_Rosefield rosefield)
+    // {
+    //     if (roseFields.Contains(rosefield)) return;
+    //     roseFields.Add(rosefield);
+    // }
+    // public void RemoveRosefield(Elze_Rosefield rosefield)
+    // {
+    //     roseFields.Remove(rosefield);
+    // }
 
-    public void AddMoraleField(Louisa_MoraleBoost moralefield)
-    {
-        if (moraleFields.Contains(moralefield)) return;
-        moraleFields.Add(moralefield);
-    }
-    public void RemoveMoraleField(Louisa_MoraleBoost moralefield)
-    {
-        moraleFields.Remove(moralefield);
-    }
+    // public void AddMoraleField(Louisa_MoraleBoost moralefield)
+    // {
+    //     if (moraleFields.Contains(moralefield)) return;
+    //     moraleFields.Add(moralefield);
+    // }
+    // public void RemoveMoraleField(Louisa_MoraleBoost moralefield)
+    // {
+    //     moraleFields.Remove(moralefield);
+    // }
 
-    public void AddProtectionField(Alaster_ProtectionField protectionField)
-    {
-        if (protectionFields.Contains(protectionField)) return;
-        protectionFields.Add(protectionField);
-    }
+    // public void AddProtectionField(Alaster_ProtectionField protectionField)
+    // {
+    //     if (protectionFields.Contains(protectionField)) return;
+    //     protectionFields.Add(protectionField);
+    // }
 
-    public void RemoveProtectionField(Alaster_ProtectionField protectionField)
-    {
-        protectionFields.Remove(protectionField);
-    }
+    // public void RemoveProtectionField(Alaster_ProtectionField protectionField)
+    // {
+    //     protectionFields.Remove(protectionField);
+    // }
 
-    public void AddFieryField(Edna_FieryField fieryField)
-    {
-        if (fieryFields.Contains(fieryField)) return;
-        fieryFields.Add(fieryField);
-    }
-    public void RemoveFieryField(Edna_FieryField fieryField)
-    {
-        fieryFields.Remove(fieryField);
-    }
+    // public void AddFieryField(Edna_FieryField fieryField)
+    // {
+    //     if (fieryFields.Contains(fieryField)) return;
+    //     fieryFields.Add(fieryField);
+    // }
+    // public void RemoveFieryField(Edna_FieryField fieryField)
+    // {
+    //     fieryFields.Remove(fieryField);
+    // }
 
-    public bool CanSwitchedOut()
-    {
-        foreach (var key in heroHealth.statusEffects.Keys.ToList())
-        {
-            if (!StatusEffectManager.instance.IsBuff(key))
-            {
-                return false;
-            }
-        }
+    // public bool CanSwitchedOut()
+    // {
+    //     foreach (var key in heroHealth.statusEffects.Keys.ToList())
+    //     {
+    //         if (!StatusEffectManager.instance.IsBuff(key))
+    //         {
+    //             return false;
+    //         }
+    //     }
 
-        if (control.IsUsingSkill()) return false;
+    //     if (control.IsUsingSkill()) return false;
 
-        return true;
-    }
+    //     return true;
+    // }
 
-    [HideInInspector] public bool onFieryField;
-    public void ResetBonusFieryField()
-    {
-        onFieryField = false;
-        fieryField_skillDmg = 0;
-        fieryField_bonusManaGain = 0;
-        heroStatusEffect.RemoveNotification("ed_burningfield");
+    // [HideInInspector] public bool onFieryField;
+    // public void ResetBonusFieryField()
+    // {
+    //     onFieryField = false;
+    //     fieryField_skillDmg = 0;
+    //     fieryField_bonusManaGain = 0;
+    //     heroStatusEffect.RemoveNotification("ed_burningfield");
 
-        fieryFields = new List<Edna_FieryField>();
-    }
+    //     //fieryFields = new List<Edna_FieryField>();
+    // }
 
-    public void AddBonusFieryField(float mana, float skill)
-    {
-        onFieryField = true;
-        fieryField_skillDmg = skill;
-        fieryField_bonusManaGain = mana;
-        heroStatusEffect.SetNotification("ed_burningfield", "");
-    }
+    // public void AddBonusFieryField(float mana, float skill)
+    // {
+    //     onFieryField = true;
+    //     fieryField_skillDmg = skill;
+    //     fieryField_bonusManaGain = mana;
+    //     heroStatusEffect.SetNotification("ed_burningfield", "");
+    // }
 
 
-    public bool HasExRune(SocketType socket)
-    {
-        switch (socket)
-        {
-            case SocketType.Transmutation:
-                return socketEffect.transmutation.count > 0;
+    // public bool HasExRune(SocketType socket)
+    // {
+    //     switch (socket)
+    //     {
+    //         case SocketType.Transmutation:
+    //             return socketEffect.transmutation.count > 0;
 
-            case SocketType.Ruin:
-                return socketEffect.ruin.count > 0;
+    //         case SocketType.Ruin:
+    //             return socketEffect.ruin.count > 0;
 
-            case SocketType.Omni:
-                return socketEffect.omni.count > 0;
+    //         case SocketType.Omni:
+    //             return socketEffect.omni.count > 0;
 
-            case SocketType.Magna:
-                return socketEffect.magna.count > 0;
+    //         case SocketType.Magna:
+    //             return socketEffect.magna.count > 0;
 
-            default: return false;
-        }
-    }
-    public float GetExVal(SocketType socket)
-    {
-        switch (socket)
-        {
-            case SocketType.Transmutation:
-                return socketEffect.transmutation.GetValue(0);
+    //         default: return false;
+    //     }
+    // }
+    // public float GetExVal(SocketType socket)
+    // {
+    //     switch (socket)
+    //     {
+    //         case SocketType.Transmutation:
+    //             return socketEffect.transmutation.GetValue(0);
 
-            case SocketType.Ruin:
-                return socketEffect.ruin.GetValue(0);
+    //         case SocketType.Ruin:
+    //             return socketEffect.ruin.GetValue(0);
 
-            case SocketType.Omni:
-                return socketEffect.omni.GetValue(0);
+    //         case SocketType.Omni:
+    //             return socketEffect.omni.GetValue(0);
 
-            case SocketType.Magna:
-                return socketEffect.magna.GetValue(0);
+    //         case SocketType.Magna:
+    //             return socketEffect.magna.GetValue(0);
 
-            default: return 0;
-        }
-    }
+    //         default: return 0;
+    //     }
+    // }
 
 
 
 
 
     //ALASTER PREMIUM ROD
-    public bool IsUsingPremiumRod()
-    {
-        if (heroReference.hero != Hero.Alaster) return false;
+    // public bool IsUsingPremiumRod()
+    // {
+    //     if (heroReference.hero != Hero.Alaster) return false;
 
-        try
-        {
-            var savedata = GetComponent<HeroSaveData>().data;
-            bool usingPremiumRodCostume = savedata.costumes[0].itemData.id == "summer_fishingrod";
-            bool usingPremiumRodTransmog = savedata.cosuTransmog[0].itemData.id == "summer_fishingrod";
+    //     try
+    //     {
+    //         var savedata = GetComponent<HeroSaveData>().data;
+    //         bool usingPremiumRodCostume = savedata.costumes[0].itemData.id == "summer_fishingrod";
+    //         bool usingPremiumRodTransmog = savedata.cosuTransmog[0].itemData.id == "summer_fishingrod";
 
-            if (usingPremiumRodCostume || usingPremiumRodTransmog)
-                return true;
-            else return false;
-        }
-        catch (System.Exception e)
-        {
-            Debug.LogError(e);
-            return false;
-        }
-    }
+    //         if (usingPremiumRodCostume || usingPremiumRodTransmog)
+    //             return true;
+    //         else return false;
+    //     }
+    //     catch (System.Exception e)
+    //     {
+    //         Debug.LogError(e);
+    //         return false;
+    //     }
+    // }
 }
