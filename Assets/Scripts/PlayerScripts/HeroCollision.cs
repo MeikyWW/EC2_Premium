@@ -6,10 +6,10 @@ public class HeroCollision : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("portal"))
-        {
-            other.GetComponent<NodePortal>().Proceed(transform);
-        }
+        // if (other.CompareTag("portal"))
+        // {
+        //     other.GetComponent<NodePortal>().Proceed(transform);
+        // }
         /*
         else if (other.CompareTag("dropItem"))
         {

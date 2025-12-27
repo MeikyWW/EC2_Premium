@@ -6,7 +6,10 @@ using System.Linq;
 using CodeStage.AntiCheat.ObscuredTypes;
 using Sirenix.OdinInspector;
 
-public class HeroHealth : MonoBehaviour, IStatusEffect, IDamageable
+public class HeroHealth : MonoBehaviour
+//, IStatusEffect
+, IDamageable
+
 {
     Renderer[] allRenderers;
     public ObscuredFloat hp;
@@ -19,7 +22,7 @@ public class HeroHealth : MonoBehaviour, IStatusEffect, IDamageable
     HeroHUD heroHud;
     ParticleSystem flashEvasionFx;
     GameManager gm;
-    InstanceBattleHandler battleHandler;
+    //InstanceBattleHandler battleHandler;
 
     #region SUBSCRIBTIONS 
     private void OnEnable()
@@ -27,7 +30,7 @@ public class HeroHealth : MonoBehaviour, IStatusEffect, IDamageable
         PartyManager.OnHeroSwitch += UpdateHpBar;
         GameManager.OnPartyChanged += UpdateHpBar;
 
-        TrialManager.OnTrialStart += RemoveAllBuff;
+        //TrialManager.OnTrialStart += RemoveAllBuff;
     }
 
     private void OnDisable()
@@ -35,7 +38,7 @@ public class HeroHealth : MonoBehaviour, IStatusEffect, IDamageable
         PartyManager.OnHeroSwitch -= UpdateHpBar;
         GameManager.OnPartyChanged -= UpdateHpBar;
 
-        TrialManager.OnTrialStart -= RemoveAllBuff;
+        //TrialManager.OnTrialStart -= RemoveAllBuff;
     }
     #endregion
 
@@ -65,7 +68,7 @@ public class HeroHealth : MonoBehaviour, IStatusEffect, IDamageable
 
         if (gm.HeroesInCharge.Contains(status))
         {
-            heroHud = gm.heroHud;
+            //heroHud = gm.heroHud;
             if (status.statusBar)
             {
                 status.statusBar.SetHealthText(string.Format("{0:0,0} / {1:0,0}", hp, status.FinalMaxHP));
@@ -83,7 +86,7 @@ public class HeroHealth : MonoBehaviour, IStatusEffect, IDamageable
             foreach (Material m in r.materials)
                 allMats.Add(m);
 
-        battleHandler = InstanceBattleHandler.instance;
+        //battleHandler = InstanceBattleHandler.instance;
 
         inited = true;
     }
@@ -286,11 +289,11 @@ public class HeroHealth : MonoBehaviour, IStatusEffect, IDamageable
                     if (AutoEvasionSuccess(true) && !GetFrozenState())
                     {
                         result.isMiss = true;
-                        if (status.heroReference.hero == Hero.Chase)
-                            GetComponent<Hero_Chase>().TryCounterEvasion();
-                        else if (status.heroReference.hero == Hero.Louisa)
-                            GetComponent<Hero_Louisa>().TryCounterEvasion();
-                        return;
+                        // if (status.heroReference.hero == Hero.Chase)
+                        //     GetComponent<Hero_Chase>().TryCounterEvasion();
+                        // else if (status.heroReference.hero == Hero.Louisa)
+                        //     GetComponent<Hero_Louisa>().TryCounterEvasion();
+                        // return;
                     }
                 }
                 else
@@ -298,11 +301,11 @@ public class HeroHealth : MonoBehaviour, IStatusEffect, IDamageable
                     if (AutoEvasionSuccess() && !GetFrozenState())
                     {
                         result.isMiss = true;
-                        if (status.heroReference.hero == Hero.Chase)
-                            GetComponent<Hero_Chase>().TryCounterEvasion();
-                        else if (status.heroReference.hero == Hero.Louisa)
-                            GetComponent<Hero_Louisa>().TryCounterEvasion();
-                        return;
+                        // if (status.heroReference.hero == Hero.Chase)
+                        //     GetComponent<Hero_Chase>().TryCounterEvasion();
+                        // else if (status.heroReference.hero == Hero.Louisa)
+                        //     GetComponent<Hero_Louisa>().TryCounterEvasion();
+                        // return;
                     }
                 }
             }
@@ -367,10 +370,10 @@ public class HeroHealth : MonoBehaviour, IStatusEffect, IDamageable
         if (!megaArmor)
         {
             hp -= finalDmg;
-            TriggerFireShield();
+            //TriggerFireShield();
             control.DamageTaken(finalDmg, source);
             HudManager.instance.PopDamagePlayer(transform, 1, dmgToDisplay);
-            status.TriggerVengeance();
+            //status.TriggerVengeance();
             if (ignoreFlinch)
             {
                 control.StaggerResisted();
@@ -387,20 +390,20 @@ public class HeroHealth : MonoBehaviour, IStatusEffect, IDamageable
                 bool DEAD = true;
                 bool hasRevivalEgg = RevivalEggAvailable();
 
-                if (status.heroReference.hero == Hero.Elze) //ELZE UNDYING RESOLVE
-                {
-                    Hero_Elze elze = GetComponent<Hero_Elze>();
-                    if (elze.undyingResolve_TimerReady && elze.MasteryUnlocked(5))
-                    {
-                        if (elze.winterRoses.RoseCount > 0)
-                        {
-                            status.heroHealth.hp = 1;
-                            RestoreHpPercent(20, true);
-                            elze.UseUndyingResolveImmortality();
-                            DEAD = false;
-                        }
-                    }
-                }
+                // if (status.heroReference.hero == Hero.Elze) //ELZE UNDYING RESOLVE
+                // {
+                //     Hero_Elze elze = GetComponent<Hero_Elze>();
+                //     if (elze.undyingResolve_TimerReady && elze.MasteryUnlocked(5))
+                //     {
+                //         if (elze.winterRoses.RoseCount > 0)
+                //         {
+                //             status.heroHealth.hp = 1;
+                //             RestoreHpPercent(20, true);
+                //             elze.UseUndyingResolveImmortality();
+                //             DEAD = false;
+                //         }
+                //     }
+                // }
 
                 if (status.socketEffect.protection.count > 0 && DEAD)
                 {
@@ -416,7 +419,7 @@ public class HeroHealth : MonoBehaviour, IStatusEffect, IDamageable
                 {
                     //Revival Egg
                     status.UseRevivalEgg();
-                    gm.inventory.CharacterInventory().RemoveItem("consum_sunny", 1);
+                    // gm.inventory.CharacterInventory().RemoveItem("consum_sunny", 1);
 
                     status.heroHealth.hp = 1;
                     RestoreHpPercent(30, true);
@@ -442,10 +445,10 @@ public class HeroHealth : MonoBehaviour, IStatusEffect, IDamageable
         }
 
         //check instance battle handler
-        if (battleHandler)
-        {
-            battleHandler.HeroTakeDamage(finalDmg, GetHpPercent());
-        }
+        // if (battleHandler)
+        // {
+        //     battleHandler.HeroTakeDamage(finalDmg, GetHpPercent());
+        // }
 
         UpdateHpBar();
     }
@@ -486,31 +489,31 @@ public class HeroHealth : MonoBehaviour, IStatusEffect, IDamageable
         if (GetHpPercent() * 100f < healthCleanseTreshold)
             control.CleanseDebuff();
     }
-    public void TriggerFireShield()
-    {
-        var se = GetStatusEffect(StatusEffects.fireShield);
-        if (se != null)
-        {
-            try
-            {
-                var instanced = se.GetComponent<InstancedObject>();
-                if (instanced)
-                {
-                    instanced.TakeInstance(1, () =>
-                    {
-                        //Try remove effect
-                        if (statusEffects.ContainsKey(StatusEffects.fireShield))
-                        {
-                            statusEffects[StatusEffects.fireShield].EndStatusEffect();
-                        }
-                    });
-                }
-            }
-            catch
-            {
-            }
-        }
-    }
+    // public void TriggerFireShield()
+    // {
+    //     var se = GetStatusEffect(StatusEffects.fireShield);
+    //     if (se != null)
+    //     {
+    //         try
+    //         {
+    //             var instanced = se.GetComponent<InstancedObject>();
+    //             if (instanced)
+    //             {
+    //                 instanced.TakeInstance(1, () =>
+    //                 {
+    //                     //Try remove effect
+    //                     if (statusEffects.ContainsKey(StatusEffects.fireShield))
+    //                     {
+    //                         statusEffects[StatusEffects.fireShield].EndStatusEffect();
+    //                     }
+    //                 });
+    //             }
+    //         }
+    //         catch
+    //         {
+    //         }
+    //     }
+    // }
 
     public void TriggerSomething(float treshold, System.Action OnTreshold, System.Action OutsideTreshold)
     {

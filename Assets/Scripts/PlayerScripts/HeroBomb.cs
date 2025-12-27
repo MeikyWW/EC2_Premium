@@ -59,8 +59,8 @@ public class HeroBomb : MonoBehaviour
                 if (req.isCritical) GameManager.instance.vfxManager.Crit(transform.position, AttackType.blow);
                 if (effects != StatusEffects.none) StatusEffectManager.instance.SetStatusEffect(c.transform, req);
             }
-            if (c.CompareTag("Ore"))
-                c.GetComponent<GatheringPoint>().Hit();
+            // if (c.CompareTag("Ore"))
+            //     c.GetComponent<GatheringPoint>().Hit();
         }
         if (!waitForVfx) Destroy(gameObject);
     }

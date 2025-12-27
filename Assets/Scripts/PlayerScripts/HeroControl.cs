@@ -66,8 +66,8 @@ public class HeroControl : MonoBehaviour
         PartyManager.OnHeroSwitch += SetSkillButtons;
         GameManager.OnPartyChanged += SetSkillButtons;
         GameManager.OnGameStateChanged += MovementOverState;
-        GameManager.OnTeleport += ResetBonusSpeed;
-        GameManager.OnTeleport += ResetBonusProtection;
+        // GameManager.OnTeleport += ResetBonusSpeed;
+        // GameManager.OnTeleport += ResetBonusProtection;
     }
 
     public virtual void OnDisable()
@@ -75,8 +75,8 @@ public class HeroControl : MonoBehaviour
         PartyManager.OnHeroSwitch -= SetSkillButtons;
         GameManager.OnPartyChanged -= SetSkillButtons;
         GameManager.OnGameStateChanged -= MovementOverState;
-        GameManager.OnTeleport -= ResetBonusSpeed;
-        GameManager.OnTeleport -= ResetBonusProtection;
+        // GameManager.OnTeleport -= ResetBonusSpeed;
+        // GameManager.OnTeleport -= ResetBonusProtection;
     }
     #endregion
 
@@ -96,10 +96,10 @@ public class HeroControl : MonoBehaviour
         _animator = GetComponent<Animator>();
         _animator.keepAnimatorStateOnDisable = true;
         gm = GameManager.instance;
-        heroHud = gm.heroHud;
+        //heroHud = gm.heroHud;
         _cam = CombatCamera.instance;
 #if UNITY_STANDALONE
-        _input = gm.input;
+        //_input = gm.input;
 #endif
         baseMovSpd = _status.moveSpeed;
 
@@ -190,12 +190,13 @@ public class HeroControl : MonoBehaviour
         if (isUsingSkill) return true;
         if (_health.isFrozen) return true;
         if (isStrongPulled) return true;
-        if (gm.fishMechanic.isFishing) return true;
+        // if (gm.fishMechanic.isFishing) return true;
 
         return false;
     }
 
     public virtual void Die()
+
     {
         EndUseItem();
         _health.ResetSuperArmor();
@@ -203,8 +204,8 @@ public class HeroControl : MonoBehaviour
 
         //_status.heroStatusEffect.RemoveNotification("mega_armor");
 
-        ResetBonusSpeed();
-        ResetBonusProtection();
+        // ResetBonusSpeed();
+        // ResetBonusProtection();
         EndSkill();
     }
 
@@ -523,7 +524,7 @@ public class HeroControl : MonoBehaviour
         this.puller = puller;
         DisableMove();
         _animator.SetBool("stunned", true);
-        gm.MoveHero(this, puller.position, transform.rotation);
+        //gm.MoveHero(this, puller.position, transform.rotation);
     }
 
     public void UpdateStrongPull()
@@ -598,7 +599,7 @@ public class HeroControl : MonoBehaviour
     public static event System.Action OnUseItem;
     protected void UseItem() //use potion/consumables
     {
-        if (!gm.heroHud.CanUseLastItem()) return;
+        //if (!gm.heroHud.CanUseLastItem()) return;
         //_health.EndSuperArmor(0);
         Item usedItem = heroHud.ConsumeSelectedItem();
         OnUseItem?.Invoke();
@@ -611,9 +612,9 @@ public class HeroControl : MonoBehaviour
                     UseNormalItem(effect);
                 break;
 
-            case ConsumableUseType.Throwable:
-                UseThrowableItem(usedItem.consumable.throwableData);
-                break;
+            // case ConsumableUseType.Throwable:
+            //     UseThrowableItem(usedItem.consumable.throwableData);
+            //     break;
         }
     }
 
@@ -680,7 +681,7 @@ public class HeroControl : MonoBehaviour
             case ConsumableType.SetStatusEffect:
                 DamageRequest req = new DamageRequest()
                 {
-                    statusEffect = effect.statusEffectData.statusEffect,
+                    // statusEffect = effect.statusEffectData.statusEffect,
                     statusEffectDuration = effect.statusEffectData.statusEffectDuration,
                     statusEffectDamage = effect.statusEffectData.statusEffectPotency,
                     unresistable = effect.statusEffectData.unresistable
@@ -691,48 +692,48 @@ public class HeroControl : MonoBehaviour
         }
     }
 
-    void UseThrowableItem(ThrowableData throwable) //use potion/consumables
-    {
-        //Summon Kunai from hand
-        if (throwable.throwedPrefab != null)
-        {
-            GameObject throwed = Instantiate(throwable.throwedPrefab, throwPos.position, throwPos.rotation);
+    // void UseThrowableItem(ThrowableData throwable) //use potion/consumables
+    // {
+    //     //Summon Kunai from hand
+    //     if (throwable.throwedPrefab != null)
+    //     {
+    //         GameObject throwed = Instantiate(throwable.throwedPrefab, throwPos.position, throwPos.rotation);
 
-            var dmg = _status.GetModifiedFinalDamage() * (throwable.potency / 100);
-            dmg += dmg * (_status.FinalConsumablePlus / 100);
+    //         var dmg = _status.GetModifiedFinalDamage() * (throwable.potency / 100);
+    //         dmg += dmg * (_status.FinalConsumablePlus / 100);
 
-            float finalStunDuration = throwable.stunDuration;// * (1 + (_status.FinalConsumablePlus / 100));
-            float finalStatusEffectPotency = throwable.statusEffectData.statusEffectPotency;// * (1 + (_status.FinalConsumablePlus / 100));
-            float finalStatusEffectDuration = throwable.statusEffectData.statusEffectDuration;// * (1 + (_status.FinalConsumablePlus / 100));
-            var finalDmg = dmg;
-            var crit = false;
-            if (throwable.critable)
-                ApplyCritical(dmg, out finalDmg, out crit);
+    //         float finalStunDuration = throwable.stunDuration;// * (1 + (_status.FinalConsumablePlus / 100));
+    //         float finalStatusEffectPotency = throwable.statusEffectData.statusEffectPotency;// * (1 + (_status.FinalConsumablePlus / 100));
+    //         float finalStatusEffectDuration = throwable.statusEffectData.statusEffectDuration;// * (1 + (_status.FinalConsumablePlus / 100));
+    //         var finalDmg = dmg;
+    //         var crit = false;
+    //         if (throwable.critable)
+    //             ApplyCritical(dmg, out finalDmg, out crit);
 
-            DamageRequest req = new DamageRequest()
-            {
-                damage = finalDmg,
-                stunDuration = finalStunDuration,
-                isCritical = crit,
-                statusEffect = throwable.statusEffectData.statusEffect,
-                statusEffectDamage = finalStatusEffectPotency,
-                statusEffectDuration = finalStatusEffectDuration,
-                accuracy = 100,
-                knockback = 0
-            };
+    //         DamageRequest req = new DamageRequest()
+    //         {
+    //             damage = finalDmg,
+    //             stunDuration = finalStunDuration,
+    //             isCritical = crit,
+    //             statusEffect = throwable.statusEffectData.statusEffect,
+    //             statusEffectDamage = finalStatusEffectPotency,
+    //             statusEffectDuration = finalStatusEffectDuration,
+    //             accuracy = 100,
+    //             knockback = 0
+    //         };
 
-            var throwedItem = throwed.GetComponent<ThrowedItem>();
-            if (throwedItem != null)
-            {
-                throwedItem.Launch(transform, req);
+    //         var throwedItem = throwed.GetComponent<ThrowedItem>();
+    //         if (throwedItem != null)
+    //         {
+    //             throwedItem.Launch(transform, req);
 
-                if (throwable.spawnedField != null)
-                {
-                    throwedItem.SetField(throwable.spawnedField);
-                }
-            }
-        }
-    }
+    //             if (throwable.spawnedField != null)
+    //             {
+    //                 throwedItem.SetField(throwable.spawnedField);
+    //             }
+    //         }
+    //     }
+    // }
 
     void EndUseItem()
     {
@@ -901,18 +902,18 @@ public class HeroControl : MonoBehaviour
     protected ActionButton pressedBtn;
     protected bool lockAtkInput, actionFramePassed = true, idleState;
     protected float attackBreak;
-    public static event System.Action<MissionAction> OnBasicAttack;
-    public virtual void BasicAtkPress()
-    {
-        //Proceed 
-        pressedBtn = ActionButton.BasicAtk;
-        if (!lockAtkInput)
-        {
-            if (isAttacking) lockAtkInput = true;
-            PlayAttackAnimation();
-            OnBasicAttack?.Invoke(MissionAction.Attack);
-        }
-    }
+    // public static event System.Action<MissionAction> OnBasicAttack;
+    // public virtual void BasicAtkPress()
+    // {
+    //     //Proceed 
+    //     pressedBtn = ActionButton.BasicAtk;
+    //     if (!lockAtkInput)
+    //     {
+    //         if (isAttacking) lockAtkInput = true;
+    //         PlayAttackAnimation();
+    //         OnBasicAttack?.Invoke(MissionAction.Attack);
+    //     }
+    // }
     protected virtual void PlayAttackAnimation()
     {
         if (isUsingSkill) return;
@@ -1123,10 +1124,10 @@ public class HeroControl : MonoBehaviour
         }
     }
 
-    public static event System.Action<MissionAction> OnSucceedSkill;
+    // public static event System.Action<MissionAction> OnSucceedSkill;
     protected void AddSkillExp(int index)
     {
-        OnSucceedSkill?.Invoke(MissionAction.Skill);
+        // OnSucceedSkill?.Invoke(MissionAction.Skill);
         int exp = _status.heroData.data.skillExp[index];
         int level = _status.heroData.data.skillLevels[index];
 
@@ -1138,7 +1139,7 @@ public class HeroControl : MonoBehaviour
             //skill level up
             level++; exp = 0;
             skills[index].SetSkillAttributes(level);// (_status.heroData.data.skillLevels[index]);
-            gm.NotifyLevelUp(skills[index].id, skills[index].SkillName(), true, false);
+            // gm.NotifyLevelUp(skills[index].id, skills[index].SkillName(), true, false);
         }
 
         _status.heroData.data.skillLevels[index] = level;
@@ -1155,7 +1156,7 @@ public class HeroControl : MonoBehaviour
         AddNewSkillToEmptySlot(trueSkillIndex);
 
         //notify skill unlock
-        gm.NotifyLevelUp(skills[trueSkillIndex].id, skills[trueSkillIndex].SkillName(), true, true);
+        // gm.NotifyLevelUp(skills[trueSkillIndex].id, skills[trueSkillIndex].SkillName(), true, true);
     }
     public void AddNewSkillToEmptySlot(int skillIndex)
     {
@@ -1404,10 +1405,10 @@ public class HeroControl : MonoBehaviour
     {
         if (!isInitialized) Initialize();
         if (gm.ActiveHero != _status) return;
-        gm.heroHud.skillA.SetObserve(slotA < 0 ? null : skills[slotA]);
-        gm.heroHud.skillB.SetObserve(slotB < 0 ? null : skills[slotB]);
-        gm.heroHud.skillC.SetObserve(slotC < 0 ? null : skills[slotC]);
-        gm.heroHud.skillD.SetObserve(slotD < 0 ? null : skills[slotD]);
+        // gm.heroHud.skillA.SetObserve(slotA < 0 ? null : skills[slotA]);
+        // gm.heroHud.skillB.SetObserve(slotB < 0 ? null : skills[slotB]);
+        // gm.heroHud.skillC.SetObserve(slotC < 0 ? null : skills[slotC]);
+        // gm.heroHud.skillD.SetObserve(slotD < 0 ? null : skills[slotD]);
 
         _props.CheckStance();
 
@@ -1580,8 +1581,8 @@ public class HeroControl : MonoBehaviour
 
     public virtual void BeforeSwitch()
     {
-        ResetBonusSpeed();
-        ResetBonusProtection();
+        // ResetBonusSpeed();
+        // ResetBonusProtection();
 
         if (_status.setEffect.abyssInferno > 1)
         {
@@ -1595,8 +1596,8 @@ public class HeroControl : MonoBehaviour
     }
 
     //==== MASTERIES ====//
-    [Header("[Mastery Data]")]
-    public EC2HeroMastery[] mastery;
+    // [Header("[Mastery Data]")]
+    // public EC2HeroMastery[] mastery;
     public bool MasteryUnlocked(int index)
     {
         return _status.heroData.data.masteryLvl[index] > 0;
@@ -2086,33 +2087,33 @@ public class HeroControl : MonoBehaviour
                 hero = _status.heroReference.hero
             };
 
-            gm.uniqueAtkProcs.Proc_BlackGale(pos, crovenReq);
+            // gm.uniqueAtkProcs.Proc_BlackGale(pos, crovenReq);
         }
 
         if (_status.costumeEffect.schoolManaSteal > 0) // activate when 5/5 academia equipped
         {
-            var proc = GameManager.instance.uniqueAtkProcs.Proc_ManaSteal(pos);
-            if (proc)
-            {
-                _status.AddManaValue(50f, true);
-                //HudManager.instance.PopHealMp(transform, 1, 50f);
-                //GameManager.instance.vfxManager.PotionMP(_status.potionFxPos, 0);
-            }
+            // var proc = GameManager.instance.uniqueAtkProcs.Proc_ManaSteal(pos);
+            // if (proc)
+            // {
+            //     _status.AddManaValue(50f, true);
+            //     //HudManager.instance.PopHealMp(transform, 1, 50f);
+            //     //GameManager.instance.vfxManager.PotionMP(_status.potionFxPos, 0);
+            // }
         }
 
-        if (_status.setEffect.mardukVigor > 0)
-        {
-            ProcDemonicVigorStacks();
-        }
+        // if (_status.setEffect.mardukVigor > 0)
+        // {
+        //     ProcDemonicVigorStacks();
+        // }
     }
     public void UpdateSetEffectCooldown()
     {
         if (!isInitialized) return;
 
-        if (_status.setEffect.demonicCurse > 0f)
-        {
-            UpdateDemonicCurseCooldown();
-        }
+        // if (_status.setEffect.demonicCurse > 0f)
+        // {
+        //     UpdateDemonicCurseCooldown();
+        // }
 
         if (_status.setEffect.mardukVigor > 0)
         {
@@ -2141,71 +2142,71 @@ public class HeroControl : MonoBehaviour
     //Marlene - Demon Curse
     bool canUseDemonCurse;
     float demonicCurseCD = 10f, currentDemonicCD;
-    private void UpdateDemonicCurseCooldown()
-    {
-        if (!canUseDemonCurse)
-        {
-            currentDemonicCD -= Time.deltaTime;
-            if (currentDemonicCD <= 0f)
-            {
-                currentDemonicCD = demonicCurseCD;
-                canUseDemonCurse = true;
-                _status.heroStatusEffect.RemoveNotification("setEffect_" + EquipSet.Demonic.ToString().ToLower());
-            }
+    // private void UpdateDemonicCurseCooldown()
+    // {
+    //     if (!canUseDemonCurse)
+    //     {
+    //         currentDemonicCD -= Time.deltaTime;
+    //         if (currentDemonicCD <= 0f)
+    //         {
+    //             currentDemonicCD = demonicCurseCD;
+    //             canUseDemonCurse = true;
+    //             _status.heroStatusEffect.RemoveNotification("setEffect_" + EquipSet.Demonic.ToString().ToLower());
+    //         }
 
-            else
-            {
-                _status.heroStatusEffect.SetNotification("setEffect_" + EquipSet.Demonic.ToString().ToLower(), Mathf.CeilToInt(currentDemonicCD).ToString());
-            }
-        }
+    //         else
+    //         {
+    //             _status.heroStatusEffect.SetNotification("setEffect_" + EquipSet.Demonic.ToString().ToLower(), Mathf.CeilToInt(currentDemonicCD).ToString());
+    //         }
+    //     }
 
-        if (GameManager.instance.ActiveHero == _status)
-        {
-            if (GameManager.instance.detectedEnemies > 0 && canUseDemonCurse)
-            {
-                GameManager.instance.uniqueAtkProcs.ShockwaveCurse((1 + (_status.FinalSkillAtkDamage / 100)) * _status.GetModifiedFinalDamage(), transform, _status.setEffect.demonicCurse);
-                canUseDemonCurse = false;
-            }
-        }
-    }
+    //     if (GameManager.instance.ActiveHero == _status)
+    //     {
+    //         if (GameManager.instance.detectedEnemies > 0 && canUseDemonCurse)
+    //         {
+    //             GameManager.instance.uniqueAtkProcs.ShockwaveCurse((1 + (_status.FinalSkillAtkDamage / 100)) * _status.GetModifiedFinalDamage(), transform, _status.setEffect.demonicCurse);
+    //             canUseDemonCurse = false;
+    //         }
+    //     }
+    // }
 
     //Marduk - Vigor
     int vigorstack = 0;
     float currentDemonicVigorCD;
-    private void ProcDemonicVigorStacks()
-    {
-        if (currentDemonicVigorCD > 0) return;
+    // private void ProcDemonicVigorStacks()
+    // {
+    //     if (currentDemonicVigorCD > 0) return;
 
-        vigorstack++;
+    //     vigorstack++;
 
-        if (vigorstack >= 20)
-        {
-            vigorstack = 0;
-            _status.heroStatusEffect.RemoveNotification("setEffect_" + EquipSet.MardukVigor.ToString().ToLower());
+    //     if (vigorstack >= 20)
+    //     {
+    //         vigorstack = 0;
+    //         _status.heroStatusEffect.RemoveNotification("setEffect_" + EquipSet.MardukVigor.ToString().ToLower());
 
 
-            //float vigordmg = _status.setEffect.mardukVigor * GetFinalBasicDamage();
-            float vigordmg = _status.setEffect.mardukVigor * _status.GetModifiedFinalDamage();
+    //         //float vigordmg = _status.setEffect.mardukVigor * GetFinalBasicDamage();
+    //         float vigordmg = _status.setEffect.mardukVigor * _status.GetModifiedFinalDamage();
 
-            //Debug.Log(string.Format("Vigor Dmg {0}00% => {1}. Heals {2}% ", _status.setEffect.mardukVigor * 2, vigordmg, _status.setEffect.mardukVigor));
+    //         //Debug.Log(string.Format("Vigor Dmg {0}00% => {1}. Heals {2}% ", _status.setEffect.mardukVigor * 2, vigordmg, _status.setEffect.mardukVigor));
 
-            DamageRequest vigorReq = new DamageRequest()
-            {
-                damage = vigordmg,
-                isCritical = false,
-                hero = _status.heroReference.hero
-            };
+    //         DamageRequest vigorReq = new DamageRequest()
+    //         {
+    //             damage = vigordmg,
+    //             isCritical = false,
+    //             hero = _status.heroReference.hero
+    //         };
 
-            gm.uniqueAtkProcs.DemonicVigorExplosion(transform, vigorReq);
-            _health.RestoreHpPercent(10, true);
-        }
-        else
-        {
-            _status.heroStatusEffect.SetNotification("setEffect_" + EquipSet.MardukVigor.ToString().ToLower(), "", vigorstack);
-        }
+    //         gm.uniqueAtkProcs.DemonicVigorExplosion(transform, vigorReq);
+    //         _health.RestoreHpPercent(10, true);
+    //     }
+    //     else
+    //     {
+    //         _status.heroStatusEffect.SetNotification("setEffect_" + EquipSet.MardukVigor.ToString().ToLower(), "", vigorstack);
+    //     }
 
-        currentDemonicVigorCD = 0.35f;
-    }
+    //     currentDemonicVigorCD = 0.35f;
+    // }
     private void UpdateDemonicVigorCooldown()
     {
         if (currentDemonicVigorCD > 0)
@@ -2338,7 +2339,7 @@ public class HeroControl : MonoBehaviour
                 hero = _status.heroReference.hero
             };
 
-            gm.uniqueAtkProcs.FrostNovaExplosion(transform, novaReq);
+            // gm.uniqueAtkProcs.FrostNovaExplosion(transform, novaReq);
             frostNovaAccumulatedDmg = 0;
         }
     }
@@ -2409,32 +2410,32 @@ public class HeroControl : MonoBehaviour
 
     }
 
-    public virtual void ResetBonusSpeed()
-    {
-        _status.heroStatusEffect.RemoveNotification("am_fieryupper");
-        _status.amy_field_aspd = 0;
-        _status.amy_field_mspd = 0;
-        ResetAttackSpeed();
-        ResetMoveSpeed();
+    // public virtual void ResetBonusSpeed()
+    // {
+    //     _status.heroStatusEffect.RemoveNotification("am_fieryupper");
+    //     _status.amy_field_aspd = 0;
+    //     _status.amy_field_mspd = 0;
+    //     ResetAttackSpeed();
+    //     ResetMoveSpeed();
 
-        _status.passionFields = new List<Amy_PassionField>();
-    }
+    //     _status.passionFields = new List<Amy_PassionField>();
+    // }
 
-    public virtual void ResetBonusProtection()
-    {
-        _health.damageRedPct = 0;
-        _status.heroStatusEffect.RemoveNotification("al_risingslash");
+    // public virtual void ResetBonusProtection()
+    // {
+    //     _health.damageRedPct = 0;
+    //     _status.heroStatusEffect.RemoveNotification("al_risingslash");
 
-        _status.protectionFields = new List<Alaster_ProtectionField>();
-    }
-    public virtual void ResetBonusMorale()
-    {
-        _status.louisa_morale_batk = 0;
-        _status.louisa_morale_pres = 0;
-        _status.heroStatusEffect.RemoveNotification("lu_morale");
+    //     _status.protectionFields = new List<Alaster_ProtectionField>();
+    // }
+    // public virtual void ResetBonusMorale()
+    // {
+    //     _status.louisa_morale_batk = 0;
+    //     _status.louisa_morale_pres = 0;
+    //     _status.heroStatusEffect.RemoveNotification("lu_morale");
 
-        _status.moraleFields = new List<Louisa_MoraleBoost>();
-    }
+    //     _status.moraleFields = new List<Louisa_MoraleBoost>();
+    // }
 
 
 
@@ -2471,25 +2472,25 @@ public class HeroControl : MonoBehaviour
 
 
     //Ex skills
-    protected bool ExActivated(int skillIndex)
-    {
-        if (skills[skillIndex].ex_rune == null) return false;
-        if (skills[skillIndex].ex_rune.Count == 0) return false;
+    // protected bool ExActivated(int skillIndex)
+    // {
+    //     if (skills[skillIndex].ex_rune == null) return false;
+    //     if (skills[skillIndex].ex_rune.Count == 0) return false;
 
-        return _status.HasExRune(skills[skillIndex].ex_rune[0].rune);
-    }
-    protected float ExSkillValue(int skillIndex)
-    {
-        if (skills[skillIndex].ex_rune.Count < 1) return 0;
+    //     return _status.HasExRune(skills[skillIndex].ex_rune[0].rune);
+    // }
+    // protected float ExSkillValue(int skillIndex)
+    // {
+    //     if (skills[skillIndex].ex_rune.Count < 1) return 0;
 
-        return _status.GetExVal(skills[skillIndex].ex_rune[0].rune);
-    }
-    protected float ExSkillModifier(int skillIndex)
-    {
-        if (skills[skillIndex].ex_rune.Count < 1) return 0;
+    //     return _status.GetExVal(skills[skillIndex].ex_rune[0].rune);
+    // }
+    // protected float ExSkillModifier(int skillIndex)
+    // {
+    //     if (skills[skillIndex].ex_rune.Count < 1) return 0;
 
-        return skills[skillIndex].ex_rune[0].modifier;
-    }
+    //     return skills[skillIndex].ex_rune[0].modifier;
+    // }
 
     public static event System.Action<Hero, bool> OnRageStateChange;
 
